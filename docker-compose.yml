@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./web:/usr/src/peeper # Arquivos do pc e onde estarão disponíveis dentrodo container. EX: conteudo da pasta ./web estará disponível na pasta /usr/src/peeper
+      - bundle:/usr/local/bundle
+    command: ./bin/rails-entrypoint.sh
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.ts
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./client:/usr/src/client
+volumes:
+  bundle:
